@@ -1,0 +1,91 @@
+pipeline {
+    agent any
+
+    stages {
+        stage ('Setting up workspace') {
+           steps{
+               git branch: 'main', url : 'https://github.com/Albinvadakan/cicd-development.git'
+               nodejs('node-js-latest') {
+                   sh 'npm install'
+               }
+           }
+        }
+        stage ('testing application') {
+           steps{
+                  echo 'testing application'
+           }
+        }
+        stage ('building application') {
+           steps{
+               nodejs('node-js-latest') {
+                  sh 'npm run prod-build'
+               }
+           }
+        }
+        stage ('deploying application') {
+           steps{
+              echo 'application deployement'
+           }
+        }
+     }
+}
+
+===============================================================
+
+
+pipeline {
+    agent any 
+    environment {
+        //once you sign up for Docker hub, use that user_id here
+        registry = "albinvpoulose/demo-images"
+        //- update your credentials ID after creating credentials for connecting to Docker Hub
+        registryCredential = 'fa32f95a-2d3e-4c7b-8f34-11bcc0191d70'
+        dockerImage = ''
+    }
+    
+    stages {
+        stage('Cloning Git & environment setup') {
+            steps{
+               git branch: 'main', url : 'https://github.com/Albinvadakan/cicd-development.git'
+               nodejs('node-js-latest') {
+                   sh 'npm install'
+               }
+           }
+        }
+
+    stage ('building application') {
+           steps{
+               nodejs('node-js-latest') {
+                  sh 'npm run prod-build'
+               }
+           }
+     }
+
+    // Building Docker images
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry
+        }
+      }
+    }
+    
+     // Uploading Docker images into Docker Hub
+    stage('Upload Image') {
+     steps{    
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+            }
+        }
+      }
+    }
+    
+    // Running Docker container, make sure port 8096 is opened in 
+    stage('Docker Run') {
+      steps{
+            echo 'Deploying application'
+        }
+    }
+  }
+}
