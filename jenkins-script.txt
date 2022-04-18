@@ -46,7 +46,7 @@ pipeline {
     stages {
         stage('Cloning Git & environment setup') {
             steps{
-               git branch: 'main', url : 'https://github.com/Albinvadakan/cicd-development.git'
+               git branch: 'main', url : 'https://github.com/Albinvadakan/cicd-p1.git'
                nodejs('node-js-latest') {
                    sh 'npm install'
                }
