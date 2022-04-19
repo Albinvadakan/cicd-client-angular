@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.app-skeleton {
+    height: 100vh;
+    width: 100%;
+}
+
+.app-header{
+    height: 50px;
+    background-color: burlywood;
+}
+
+.app-footer{
+    height: 15;
+    margin-top: calc( 100vh - 78px);
+    background-color: burlywood; 
+}
+
+tr{
+    height: 40px !important;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

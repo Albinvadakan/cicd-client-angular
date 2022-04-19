@@ -1,0 +1,40 @@
+<h2 mat-dialog-title class="">Add new user</h2>
+<div mat-dialog-content class="mt-3">
+    <div class="mt-2">
+
+        <form [formGroup]="createUserForm">
+            <div class="mb-3 row">
+                <label for="firstname" class="col-sm-3 col-form-label">First name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="First name" formControlName="first_name"
+                        required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="lastname" class="col-sm-3 col-form-label">Last name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Last name" formControlName="last_name"
+                        required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="email@example.com" formControlName="email"
+                        required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="9874563210" formControlName="Phone" required>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div mat-dialog-actions class="mt-5 d-flex justify-content-end">
+    <button type="button" mat-dialog-close="false" class="btn btn-secondary mx-3">cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+</div>
