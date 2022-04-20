@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { UserService } from '../../services/index';
 
 @Component({
     selector: 'app-root',
@@ -8,7 +9,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 })
 export class CreateUserDialog implements OnInit {
 
-    constructor(public dialogRef: MatDialogRef<CreateUserDialog>, @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) { }
+    constructor(public dialogRef: MatDialogRef<CreateUserDialog>, @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private service: UserService) { }
 
     createUserForm: any;
 
@@ -17,13 +18,20 @@ export class CreateUserDialog implements OnInit {
             first_name: '',
             last_name: '',
             email: '',
-            Phone: ''
+            phone: ''
         });
     }
 
     onSave() {
         console.log(this.createUserForm.value);
-        this.dialogRef.close(this.createUserForm.value);
+        this.service.addUser(this.createUserForm.value)
+            .subscribe((result: any) => {
+                console.log(result);
+                this.dialogRef.close(true);
+            },
+                (error: any) => {
+                    // this.dialogRef.close(false);
+                })
     }
 
 }

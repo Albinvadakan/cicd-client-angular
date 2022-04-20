@@ -13,20 +13,10 @@ export class AppComponent implements OnInit {
 
   constructor(private user_service: UserService, private dialog: MatDialog) { }
 
-  users = [
-    { "First Name": "Albin", "Last Name": "VP", "email": "albinvp03@gmail.com", "phone": "9874563210" },
-    { "First Name": "Albin", "Last Name": "VP", "email": "albinvp03@gmail.com", "phone": "9874563210" },
-    { "First Name": "Albin", "Last Name": "VP", "email": "albinvp03@gmail.com", "phone": "9874563210" },
-  ];
+  users = [];
 
   ngOnInit() {
-    this.user_service.getUsers()
-      .subscribe((data: any) => {
-        console.log(data);
-      },
-        (error: any) => {
-          console.log(error);
-        });
+    this.getallusers();
   }
 
 
@@ -37,8 +27,21 @@ export class AppComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.getallusers();
+      }
     });
   }
 
+
+  getallusers() {
+    this.user_service.getUsers()
+      .subscribe((data: any) => {
+        this.users = data;
+      },
+        (error: any) => {
+          console.log(error);
+        });
+  }
 
 }

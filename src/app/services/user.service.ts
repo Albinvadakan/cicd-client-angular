@@ -6,11 +6,11 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getUsers() {
-        return this.http.get('https://reqres.in/api/users?page=2');
+        return this.http.get('http://localhost:3000/user/getallusers');
     }
 
-    addUser() {
-        return this.http.post('', {});
+    addUser(userObj: any) {
+        return this.http.post('http://localhost:3000/user/create', userObj);
     }
 
 }
