@@ -1,3 +1,3 @@
 FROM nginx
-COPY /dist/cicd-p1 /usr/share/nginx/html
+COPY /dist/cicd-client-angular /usr/share/nginx/html
 
