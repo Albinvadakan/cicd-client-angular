@@ -1,1 +1,1 @@
-# cicd-p1
+# Angular application with CICD pipeline script
